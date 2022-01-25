@@ -1,0 +1,25 @@
+{
+  "name": "npi-splitter",
+  "version": "1.0.0",
+  "description": "splits the monthly replacement npi list into chunks",
+  "main": "index.js",
+  "scripts": {
+    "split": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattydoincode/npi-splitter.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mattydoincode/npi-splitter/issues"
+  },
+  "homepage": "https://github.com/mattydoincode/npi-splitter#readme",
+  "dependencies": {
+    "commander": "^8.3.0",
+    "lodash": "^4.17.21",
+    "papaparse": "^5.3.1"
+  }
+}
