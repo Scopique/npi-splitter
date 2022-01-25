@@ -77,7 +77,7 @@ papaPipe.on("data", (data) => {
       headerRow = data;
       let i = 0;
       // find possible headers as maybe it changes over time as they add/remove columns
-      if (!options.run && options.index) {
+      if (!options.run && !options.index) {
         _.forEach(data, (h) => {
           if (_.includes(_.toLower(h), "taxonomy")) {
             console.log(`maybe its index ${i}: ${h}`);
