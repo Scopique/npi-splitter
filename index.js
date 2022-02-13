@@ -2,7 +2,6 @@ const fs = require("fs");
 const _ = require("lodash");
 const { program } = require("commander");
 const Papa = require("papaparse");
-const papaparse = require("papaparse");
 program.version("0.0.1");
 
 program
@@ -19,7 +18,7 @@ const options = program.opts();
 if (options.run) console.log("we are gonna really run");
 
 var readStream = fs.createReadStream(options.file);
-const papaPipe = Papa.parse(Papa.NODE_STREAM_INPUT, options);
+const papaPipe = Papa.parse(Papa.NODE_STREAM_INPUT);
 readStream.pipe(papaPipe);
 
 // state variables here
@@ -48,7 +47,11 @@ papaPipe.on("close", (err) => {
 
 const writeRow = (dataArray, stream) => {
   // console.log("data array", JSON.stringify(dataArray));
-  const row = dataArray.join(",") + "\n";
+  const quoted = [];
+  for (var i = 0; i < dataArray.length; i++) {
+    quoted.push(`"${dataArray[i]}"`);
+  }
+  const row = quoted.join(",") + "\n";
   //maybe console.log(`WRITING: ${row}`);
   stream.write(row, "utf8");
 };
