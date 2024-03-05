@@ -8,9 +8,10 @@
 2. At the top of this screen, click the green `<> CODE` button
 3. Choose `DOWNLOAD ZIP` at the bottom and save somewhere you'll remember.
 4. Go to where you downloaded the ZIP file an unZIP it to a directory of your choice.
-5. In the address bar of the directory window (`This PC > Local Disc (C:)` or something similar), click and type POWERSHELL.
-6. Verify that the path in the Powershell window matches the location where you unZIPPED the downloaded files.  
-7. In the Powershell window, type `npm install`
+5. In that unZIPPED directory, create a sub-directory called 'output'.
+6. In the address bar of the directory window (`This PC > Local Disc (C:)` or something similar), click and type POWERSHELL.
+7. Verify that the path in the Powershell window matches the location where you unZIPPED the downloaded files.  
+8. In the Powershell window, type `npm install`
 
 ## Get the index of the desired column
 
@@ -22,7 +23,7 @@ To find the column that will supply the data for the generated files...
 > maybe its index 47: Healthcare Provider Taxonomy Code_1
 
 3. Find the column you want to extract by and note the number.
-4. In the Powershell window, enter `node index.js -f <Path to the NPI file> -d <Output directory for created files> -i <Index of the column> -r`
+4. In the Powershell window, enter `node index.js -f <Path to the NPI file> -d output -i <Index of the column> -r`
 
 ### Command line options
 
