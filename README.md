@@ -17,19 +17,7 @@
 > It's best to copy your source NPI file into the unZIPPED directory. This will make things a LOT easier when
 > you have to supply the name of the file to read from. 
 
-## Get the index of the desired column
-
-To find the column that will supply the data for the generated files...
-
-1. In the Powershell window, type `node index.js -f <Path to the NPI file>`.
-2. You should see a list of column names from the NPI file with the word 'Taxonomy' in them:
-
-> maybe its index 47: Healthcare Provider Taxonomy Code_1
-> 
-> maybe its index ??: SOME OTHER TAXONOMY COLUMN HEADER
-
-3. Find the column you want to extract by and note the number.
-4. In the Powershell window, enter `node index.js -f <Path to the NPI file> -d output -i <Index of the column> -r`
+In the Powershell window, enter `node index.js -f <Path to the NPI file> -d output -r`
 
 ### Command line options
 
