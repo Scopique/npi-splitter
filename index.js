@@ -10,7 +10,7 @@ program
   .option("-i, --index <index>", "0 indexed column number to split on")
   .option("-l, --limit <num>", "only process N rows")
   .option("-s, --skip <num>", "Skip the first N rows")
-  .option("-r, --run", "actual ly run the full script");
+  .option("-r, --run", "actually run the full script");
 
 program.parse(process.argv);
 const options = program.opts();
@@ -25,6 +25,7 @@ readStream.pipe(papaPipe);
 let rowsProcessed = 0;
 const streamsByTaxonomy = {};
 let headerRow = [];
+let colIdx = [];
 
 // This catches any errors that happen while creating the readable stream (usually invalid names)
 readStream.on("error", function (err) {
@@ -74,32 +75,36 @@ const getOrCreateStream = (tax) => {
 };
 
 papaPipe.on("data", (data) => {
+    
+
   try {
     if (rowsProcessed === 0) {
       // it's the header row
-      headerRow = data;
-      let i = 0;
-      // find possible headers as maybe it changes over time as they add/remove columns
-      if (!options.run && !options.index) {
+        headerRow = data;
+        let i = 0;
+        // find possible headers as maybe it changes over time as they add/remove columns  
         _.forEach(data, (h) => {
-          if (_.includes(_.toLower(h), "taxonomy")) {
+            if (_.includes(_.toLower(h), "taxonomy")) {
             console.log(`maybe its index ${i}: ${h}`);
-          }
-          i++;
+            colIdx.push(i);
+            }
+            i++;
         });
-      }
-    } else if (options.run && options.skip && options.skip > rowsProcessed) {
-      process.stdout.write("*");
-    } else if (options.run) {
-      const tax = data[options.index];
-      // core stream writing here
-      const writeStream = getOrCreateStream(tax);
-      writeRow(data, writeStream);
-      if (rowsProcessed % 1000 === 0) {
-        console.log(`processed: ${rowsProcessed}`);
-      }
-    }
+      
+    }else{
+        colIdx.forEach(idx=>{
+            const tax = data[idx];
+      
+            // core stream writing here
+            const writeStream = getOrCreateStream(tax);
+            writeRow(data, writeStream);
+            if (rowsProcessed % 1000 === 0) {
+              console.log(`processed: ${rowsProcessed}`);
+            }
+        })
 
+    }
+    
     rowsProcessed++;
     if (options.limit && rowsProcessed > options.limit) {
       if (options.skip) {
