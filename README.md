@@ -27,8 +27,6 @@ In the Powershell window, enter `node index.js -f <Path to the NPI file> -d outp
 
 -d, --dest [destination] : Path to destionation folder
 
--i, --index [index] : 0-based column index to split on
-
 -l, --limit [num] : Only process N rows
 
 -s, --skip [num] : Skip the first N rows
